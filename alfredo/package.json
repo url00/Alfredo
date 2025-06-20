@@ -10,6 +10,11 @@
     "test": "ng test"
   },
   "private": true,
+  "browser": {
+    "fs": false,
+    "path": false,
+    "crypto": false
+  },
   "dependencies": {
     "@angular/common": "^20.0.0",
     "@angular/compiler": "^20.0.0",
