@@ -1,0 +1,79 @@
+{
+  "configVersion": 1,
+  "timestamp": 1750452595135,
+  "index": "/alfredo/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/alfredo/favicon.ico",
+        "/alfredo/index.html",
+        "/alfredo/main-SRUWRIUX.js",
+        "/alfredo/manifest.webmanifest",
+        "/alfredo/polyfills-B6TNHZQ6.js",
+        "/alfredo/styles-5INURTSO.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/alfredo/icons/icon-128x128.png",
+        "/alfredo/icons/icon-144x144.png",
+        "/alfredo/icons/icon-152x152.png",
+        "/alfredo/icons/icon-192x192.png",
+        "/alfredo/icons/icon-384x384.png",
+        "/alfredo/icons/icon-512x512.png",
+        "/alfredo/icons/icon-72x72.png",
+        "/alfredo/icons/icon-96x96.png"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [],
+  "hashTable": {
+    "/alfredo/favicon.ico": "9c39f434fe1261f68c5e3eefdf734630d99c5670",
+    "/alfredo/icons/icon-128x128.png": "f912963bdc6d5a38d8f1dd0afbaab2ce8d657acb",
+    "/alfredo/icons/icon-144x144.png": "b155fd5f2fd5d2ea7760721063003c4cd95fd783",
+    "/alfredo/icons/icon-152x152.png": "eae6e0f0c8afb8aaae339e2a569b43e9238e5e6c",
+    "/alfredo/icons/icon-192x192.png": "15c4180454633880d98674aa7394656196c91584",
+    "/alfredo/icons/icon-384x384.png": "94a915751ef6c9282df9aea405ad679230631814",
+    "/alfredo/icons/icon-512x512.png": "1de182f76f7329dfa8f9fcdd1fdcdd695bea6a99",
+    "/alfredo/icons/icon-72x72.png": "aa88a6096bd973be7f6d7a5489bfa6bc2463f8c4",
+    "/alfredo/icons/icon-96x96.png": "7fb8f59c30ce2ff12c700321a0b39e14b3dc8f95",
+    "/alfredo/index.html": "37ccdb5df7370d7a059a74ef41a76838b9f8c516",
+    "/alfredo/main-SRUWRIUX.js": "8e353e499363fde55ef746a9ceca8c5f276040e7",
+    "/alfredo/manifest.webmanifest": "fd3cbdc15d243835bf816d5e8585b8945368f45f",
+    "/alfredo/polyfills-B6TNHZQ6.js": "bf76ac291d7f51c1139b7edcf86b359a30c08c64",
+    "/alfredo/styles-5INURTSO.css": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ],
+  "navigationRequestStrategy": "performance"
+}
