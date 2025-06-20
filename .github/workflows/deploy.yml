@@ -24,7 +24,8 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies 👨‍💻
-        run: npm --prefix alfredo ci alfredo
+        run: npm ci
+        working-directory: ./alfredo
 
       - name: Build project 🏗️
         run: ng build --configuration production --base-href /alfredo/
@@ -36,7 +37,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './dist/alfredo/'
+          path: ./alfredo/dist/alfredo/
 
       - name: Deploy to GitHub Pages 🚀
         id: deployment
