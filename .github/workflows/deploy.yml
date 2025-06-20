@@ -35,10 +35,13 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
+      - name: Copy index.html to 404.html
+        run: cp ./alfredo/dist/alfredo/browser/index.html ./alfredo/dist/alfredo/browser/404.html
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./alfredo/dist/alfredo/
+          path: ./alfredo/dist/alfredo/browser/
 
       - name: Deploy to GitHub Pages 🚀
         id: deployment
