@@ -3,31 +3,23 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - master # Or your primary branch name
-  workflow_dispatch:
-
+      - master
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write # Required to push to gh-pages branch
     steps:
-      - name: Checkout 🛎️
-        uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v2
 
-      - name: Set up Node.js ⚙️
-        uses: actions/setup-node@v4
+      - name: Use Node.js 10.x
+        uses: actions/setup-node@v1
         with:
-          node-version: '20'
-          cache: 'npm'
-          cache-dependency-path: alfredo/package-lock.json
+          node-version: 10.x
 
-      - name: Install dependencies 👨‍💻
-        run: npm ci
-        working-directory: ./alfredo
-
-      - name: Deploy to GitHub Pages 🚀
-        working-directory: ./alfredo
-        run: npx ng deploy
+      - name: Prepare and deploy
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          npm install
+          npm run ng -- deploy --base-href=/alfredo/ --name="GitHub Action" --email=action@github.com
+        working-directory: ./alfredo

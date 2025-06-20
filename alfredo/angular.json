@@ -100,12 +100,7 @@
           }
         },
         "deploy": {
-          "builder": "angular-cli-ghpages:deploy",
-          "options": {
-            "baseHref": "/alfredo/",
-            "name": "GitHub Action",
-            "email": "action@github.com"
-          }
+          "builder": "angular-cli-ghpages:deploy"
         }
       }
     }
