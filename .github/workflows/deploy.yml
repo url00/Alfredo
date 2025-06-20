@@ -24,10 +24,11 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies 👨‍💻
-        run: npm ci
+        run: npm --prefix alfredo ci alfredo
 
       - name: Build project 🏗️
         run: ng build --configuration production --base-href /alfredo/
+        working-directory: ./alfredo
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
