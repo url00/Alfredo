@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { DatabaseService } from './database.service';
-import { firstValueFrom } from 'rxjs';
+import { BehaviorSubject, firstValueFrom } from 'rxjs';
 import { filter } from 'rxjs/operators';
+import { Config } from './models/config.model';
 
 /**
  * A service for managing application configuration settings.
@@ -12,8 +13,25 @@ import { filter } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class ConfigService {
+  private configSubject = new BehaviorSubject<Config | null>(null);
+  public config$ = this.configSubject.asObservable();
 
-  constructor(private databaseService: DatabaseService) { }
+  constructor(private databaseService: DatabaseService) {
+    this.databaseService.dbReady$.subscribe(ready => {
+      if (ready) {
+        this.loadConfig();
+      }
+    });
+  }
+
+  private loadConfig(): void {
+    const config: Config = {
+      userName: this.get<string>('user_name'),
+      userEmail: this.get<string>('user_email'),
+      geminiApiKey: this.get<string>('gemini_api_key')
+    };
+    this.configSubject.next(config);
+  }
 
   /**
    * Waits until the database is ready.
@@ -39,6 +57,7 @@ export class ConfigService {
     const strValue = JSON.stringify(value);
     db.run('INSERT OR REPLACE INTO Configuration (key, value) VALUES (?, ?)', [key, strValue]);
     this.databaseService.notifyDbModified();
+    this.loadConfig();
   }
 
   /**
@@ -74,5 +93,14 @@ export class ConfigService {
    */
   public async importDatabase(dbFile: File): Promise<void> {
     await this.databaseService.importDb(dbFile);
+  }
+
+  public async updateConfig(config: Partial<Config>): Promise<void> {
+    await this.waitForDbReady();
+    for (const key in config) {
+      if (Object.prototype.hasOwnProperty.call(config, key)) {
+        await this.set(key, config[key as keyof Config]);
+      }
+    }
   }
 }

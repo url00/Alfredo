@@ -133,4 +133,13 @@ export class DatabaseService {
       this.dbReadyState$.next(false);
     }
   }
+
+  /**
+   * Deletes the database from local storage and re-initializes it.
+   */
+  public async deleteDatabase(): Promise<void> {
+    localStorage.removeItem(DB_STORAGE_KEY);
+    this.dbReadyState$.next(false);
+    await this.initDatabase();
+  }
 }

@@ -1,0 +1,31 @@
+<div class="container">
+  <button routerLink="/">Back to Status</button>
+  <h1>Settings</h1>
+
+  <form (ngSubmit)="saveSettings()" #settingsForm="ngForm">
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" [(ngModel)]="user.name" required>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" [(ngModel)]="user.email" required>
+    </div>
+
+    <div class="form-group">
+      <label for="geminiApiKey">Gemini API Key</label>
+      <input type="password" id="geminiApiKey" name="geminiApiKey" [(ngModel)]="config.geminiApiKey">
+    </div>
+
+    <button type="submit" [disabled]="!settingsForm.form.valid">Save Settings</button>
+  </form>
+
+  <hr>
+
+  <div class="danger-zone">
+    <h2>Danger Zone</h2>
+    <p>This action cannot be undone. This will permanently delete the database, and you will have to start over.</p>
+    <button class="danger" (click)="deleteDatabase()">Delete Database</button>
+  </div>
+</div>

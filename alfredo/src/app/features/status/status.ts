@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { DatabaseService } from '../../core/database.service';
 import { ConfigService } from '../../core/config.service';
 
 @Component({
   selector: 'app-status',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './status.html',
   styleUrls: ['./status.scss']
 })
