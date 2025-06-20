@@ -1,0 +1,43 @@
+<div class="wizard-container">
+  <form [formGroup]="form" (ngSubmit)="completeSetup()">
+    <!-- Step 1: User Info -->
+    <div *ngIf="step === 1">
+      <h2>Welcome to Alfredo!</h2>
+      <p>Let's get you set up. Please enter your name and email.</p>
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input id="name" formControlName="name" placeholder="Your Name">
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input id="email" type="email" formControlName="email" placeholder="your@email.com">
+      </div>
+      <button type="button" (click)="nextStep()" [disabled]="form.get('name')?.invalid || form.get('email')?.invalid">Next</button>
+    </div>
+
+    <!-- Step 2: API Key -->
+    <div *ngIf="step === 2">
+      <h2>Gemini API Key</h2>
+      <p>Please enter your Gemini API key. You can find instructions on how to get one <a href="https://aistudio.google.com/app/apikey" target="_blank">here</a>.</p>
+      <div class="form-group">
+        <label for="geminiApiKey">API Key</label>
+        <input id="geminiApiKey" formControlName="geminiApiKey" placeholder="Your Gemini API Key">
+      </div>
+      <button type="button" (click)="prevStep()">Back</button>
+      <button type="button" (click)="nextStep()" [disabled]="form.get('geminiApiKey')?.invalid">Next</button>
+    </div>
+
+    <!-- Step 3: Confirmation -->
+    <div *ngIf="step === 3">
+      <h2>Confirmation</h2>
+      <p>Please review your information before completing the setup.</p>
+      <ul>
+        <li><strong>Name:</strong> {{ form.value.name }}</li>
+        <li><strong>Email:</strong> {{ form.value.email }}</li>
+        <li><strong>Gemini API Key:</strong> {{ form.value.geminiApiKey ? '********' : 'Not provided' }}</li>
+      </ul>
+      <button type="button" (click)="prevStep()">Back</button>
+      <button type="submit" [disabled]="form.invalid">Complete Setup</button>
+    </div>
+  </form>
+</div>

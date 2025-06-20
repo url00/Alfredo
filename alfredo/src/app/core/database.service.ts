@@ -6,19 +6,20 @@ import initSqlJs, { Database } from 'sql.js';
 })
 export class DatabaseService {
   private db: Database | undefined;
+  private dbReady: Promise<void>;
 
   constructor() {
-    this.initDatabase();
+    this.dbReady = this.initDatabase();
   }
 
-  private async initDatabase() {
+  private async initDatabase(): Promise<void> {
     try {
       const SQL = await initSqlJs({
-        locateFile: file => `/${file}`
+        locateFile: file => `sql-wasm.wasm`
       });
       this.db = new SQL.Database();
-      // You can run initial setup queries here if needed
-      // For example: this.db.run("CREATE TABLE test (col1, col2);");
+      // Create configuration table if it doesn't exist
+      this.db.run("CREATE TABLE IF NOT EXISTS Configuration (key TEXT PRIMARY KEY, value TEXT);");
       console.log('Database initialized');
     } catch (err) {
       console.error('Error initializing database:', err);
@@ -27,5 +28,9 @@ export class DatabaseService {
 
   public getDb(): Database | undefined {
     return this.db;
+  }
+
+  public async isDbReady(): Promise<void> {
+    return this.dbReady;
   }
 }
