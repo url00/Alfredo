@@ -28,6 +28,6 @@ jobs:
 
       - name: Deploy to GitHub Pages 🚀
         working-directory: ./alfredo
-        run: npx ng deploy --base-href=/alfredo/ --no-silent
+        run: npx ng deploy
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
