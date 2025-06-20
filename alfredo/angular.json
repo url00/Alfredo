@@ -96,13 +96,13 @@
             "styles": [
               "src/styles.scss"
             ]
-          },
+          }
+        },
         "deploy": {
           "builder": "angular-cli-ghpages:deploy",
           "options": {
             "baseHref": "/alfredo/"
           }
-        }
         }
       }
     }
