@@ -37,4 +37,13 @@ export class DatabaseService {
   public exportDb(): Uint8Array | undefined {
     return this.db?.export();
   }
+
+  public async importDb(dbFile: File): Promise<void> {
+    const buffer = await dbFile.arrayBuffer();
+    const SQL = await initSqlJs({
+      locateFile: file => `sql-wasm.wasm`
+    });
+    this.db = new SQL.Database(new Uint8Array(buffer));
+    console.log('Database imported');
+  }
 }

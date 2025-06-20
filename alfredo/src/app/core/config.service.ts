@@ -37,4 +37,8 @@ export class ConfigService {
     await this.databaseService.isDbReady();
     return this.get<boolean>('setup_complete') || false;
   }
+
+  public async importDatabase(dbFile: File): Promise<void> {
+    await this.databaseService.importDb(dbFile);
+  }
 }

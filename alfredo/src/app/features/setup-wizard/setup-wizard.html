@@ -13,6 +13,10 @@
         <input id="email" type="email" formControlName="email" placeholder="your@email.com">
       </div>
       <button type="button" (click)="nextStep()" [disabled]="form.get('name')?.invalid || form.get('email')?.invalid">Next</button>
+      <div class="divider"></div>
+      <p>Or</p>
+      <input type="file" (change)="onFileSelected($event)" accept=".db" #fileUpload hidden>
+      <button type="button" (click)="fileUpload.click()">Start from Existing Data</button>
     </div>
 
     <!-- Step 2: API Key -->

@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DatabaseService } from '../../core/database.service';
+import { ConfigService } from '../../core/config.service';
 
 @Component({
   selector: 'app-status',
@@ -9,9 +10,17 @@ import { DatabaseService } from '../../core/database.service';
   templateUrl: './status.html',
   styleUrls: ['./status.scss']
 })
-export class StatusComponent {
+export class StatusComponent implements OnInit {
+  userName: string | undefined;
 
-  constructor(private databaseService: DatabaseService) {}
+  constructor(
+    private databaseService: DatabaseService,
+    private configService: ConfigService
+  ) {}
+
+  ngOnInit(): void {
+    this.userName = this.configService.get<string>('user_name');
+  }
 
   downloadState() {
     const dbData = this.databaseService.exportDb();
