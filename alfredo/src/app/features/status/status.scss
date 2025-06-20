@@ -1,0 +1,22 @@
+.status-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.navbar h1 {
+  margin: 0;
+}
+
+.content {
+  padding: 20px;
+}

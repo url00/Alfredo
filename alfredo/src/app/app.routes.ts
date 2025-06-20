@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { SetupWizardComponent } from './features/setup-wizard/setup-wizard';
 import { SetupCompleteGuard } from './core/auth/setup-complete-guard';
+import { StatusComponent } from './features/status/status';
 
 export const routes: Routes = [
   {
@@ -9,9 +10,7 @@ export const routes: Routes = [
   },
   {
     path: '',
-    canActivate: [SetupCompleteGuard],
-    children: [
-      // Your main app routes go here
-    ]
+    component: StatusComponent,
+    canActivate: [SetupCompleteGuard]
   }
 ];

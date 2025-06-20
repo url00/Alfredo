@@ -33,4 +33,8 @@ export class DatabaseService {
   public async isDbReady(): Promise<void> {
     return this.dbReady;
   }
+
+  public exportDb(): Uint8Array | undefined {
+    return this.db?.export();
+  }
 }
