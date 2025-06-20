@@ -67,6 +67,9 @@
         },
         "serve": {
           "builder": "@angular/build:dev-server",
+          "options": {
+            "open": false
+          },
           "configurations": {
             "production": {
               "buildTarget": "alfredo:build:production"
