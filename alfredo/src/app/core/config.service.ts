@@ -24,6 +24,7 @@ export class ConfigService {
     }
     const strValue = JSON.stringify(value);
     db.run('INSERT OR REPLACE INTO Configuration (key, value) VALUES (?, ?)', [key, strValue]);
+    this.databaseService.notifyDbModified();
   }
 
   public get<T>(key: string): T | undefined {
