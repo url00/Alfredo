@@ -3,16 +3,14 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - master # Or your primary branch name (e.g., main)
-  workflow_dispatch: # Allows manual triggering from the Actions tab
+      - master # Or your primary branch name
+  workflow_dispatch:
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
-      pages: write
-      id-token: write
+      contents: write # Required to push to gh-pages branch
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v4
@@ -28,21 +26,8 @@ jobs:
         run: npm ci
         working-directory: ./alfredo
 
-      - name: Build project 🏗️
-        run: npx ng build --configuration production --base-href /alfredo/ --deploy-url /alfredo/
-        working-directory: ./alfredo
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
-
-      - name: Copy index.html to 404.html
-        run: cp ./alfredo/dist/alfredo/browser/index.html ./alfredo/dist/alfredo/browser/404.html
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./alfredo/dist/alfredo/browser/
-
       - name: Deploy to GitHub Pages 🚀
-        id: deployment
-        uses: actions/deploy-pages@v4
+        working-directory: ./alfredo
+        run: npx ng deploy --base-href=/alfredo/ --no-silent
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
