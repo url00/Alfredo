@@ -1,35 +1,40 @@
-name: Deploy to GitHub Pages
-
+name: Build & Deploy to GH Pages
 on:
   push:
     branches:
-      - master
+      - main
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
 
 jobs:
-  build-and-deploy:
+  build-deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '20'
-        cache: 'npm'
-        cache-dependency-path: alfredo/package-lock.json
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: alfredo/package-lock.json
 
-    - name: Install Dependencies
-      run: npm install
-      working-directory: ./alfredo
+      - name: Install dependencies
+        run: npm ci
+        working-directory: ./alfredo
 
-    - name: Build
-      run: npm run build
-      working-directory: ./alfredo
+      - name: Build
+        run: npm run build:prod
+        working-directory: ./alfredo
 
-    - name: Deploy
-      run: npm run deploy
-      working-directory: ./alfredo
-      env:
-        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./alfredo/docs
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'

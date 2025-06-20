@@ -5,9 +5,9 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:prod": "ng build --configuration production --base-href /alfredo/",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test",
-    "deploy": "ng deploy --base-href=/alfredo/ --name=\"github-actions[bot]\" --email=\"github-actions[bot]@users.noreply.github.com\""
+    "test": "ng test"
   },
   "private": true,
   "dependencies": {
