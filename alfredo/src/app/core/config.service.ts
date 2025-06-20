@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { DatabaseService } from './database.service';
+import { firstValueFrom } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -8,8 +10,14 @@ export class ConfigService {
 
   constructor(private databaseService: DatabaseService) { }
 
+  private async waitForDbReady(): Promise<boolean> {
+    return firstValueFrom(
+      this.databaseService.dbReady$.pipe(filter(isReady => isReady))
+    );
+  }
+
   public async set(key: string, value: any): Promise<void> {
-    await this.databaseService.isDbReady();
+    await this.waitForDbReady();
     const db = this.databaseService.getDb();
     if (!db) {
       throw new Error('Database not initialized');
@@ -21,8 +29,6 @@ export class ConfigService {
   public get<T>(key: string): T | undefined {
     const db = this.databaseService.getDb();
     if (!db) {
-      // This case should ideally not be hit if we await the ready promise,
-      // but it's a good safeguard.
       console.error('Get called before DB was ready.');
       return undefined;
     }
@@ -34,7 +40,7 @@ export class ConfigService {
   }
 
   public async isSetupComplete(): Promise<boolean> {
-    await this.databaseService.isDbReady();
+    await this.waitForDbReady();
     return this.get<boolean>('setup_complete') || false;
   }
 
