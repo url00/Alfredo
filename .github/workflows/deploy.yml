@@ -21,5 +21,5 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           npm install
-          npm run ng -- deploy --base-href=/alfredo/ --name="GitHub Action" --email=action@github.com
+          npm run ng -- deploy --base-href=/alfredo/ --name="GitHub Action" --email=action@github.com --repo=https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/url00/Alfredo.git
         working-directory: ./alfredo
