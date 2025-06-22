@@ -5,7 +5,7 @@ test.describe('Database Service', () => {
     await page.goto('/');
 
     // Wait for the database to be initialized
-    await page.waitForFunction(() => (window as any).dbInitialized);
+    await page.waitForFunction(() => (window as any).dbReady);
 
     // Complete the setup wizard
     await page.getByLabel('Name').fill('Test User');
