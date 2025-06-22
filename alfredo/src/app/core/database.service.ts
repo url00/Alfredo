@@ -51,6 +51,7 @@ export class DatabaseService {
         this.notifyDbModified();
       }
       this.dbReadyState$.next(true);
+      (window as any).dbInitialized = true;
     } catch (err) {
       console.error('Error initializing database:', err);
       this.dbReadyState$.next(false);
