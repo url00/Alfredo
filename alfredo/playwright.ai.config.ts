@@ -1,11 +1,13 @@
 import { defineConfig, devices } from '@playwright/test';
+import * as dotenv from 'dotenv';
 
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
+dotenv.config();
 export default defineConfig({
   testDir: './playwright',
-  testIgnore: /.*\.ai\.spec\.ts/,
+  testMatch: /.*\.ai\.spec\.ts/,
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
