@@ -77,3 +77,41 @@ test('should load existing data from a database file', async ({ page }) => {
   await expect(page.getByLabel('Email')).toHaveValue('test@test.com');
   await expect(page.getByLabel('API Key')).toHaveValue('test');
 });
+
+test('should display an AI-generated welcome message', async ({ page }) => {
+  await page.goto('/');
+
+  // Wait for the database to be initialized
+  await page.waitForFunction(() => (window as any).dbReady);
+
+  // Complete the setup wizard
+  await page.getByLabel('Name').fill('Test User');
+  await page.getByLabel('Email').fill('test@example.com');
+  await page.getByRole('button', { name: 'Next' }).click();
+  await page.getByLabel('API Key').fill('test-key');
+  await page.getByRole('button', { name: 'Next' }).click();
+  await page.getByRole('button', { name: 'Complete Setup' }).click();
+
+  // Wait for navigation to complete
+  await page.waitForURL('**/');
+
+  // Check that the welcome message is visible and not the default
+  const welcomeMessage = page.getByRole('heading');
+  await expect(welcomeMessage).toBeVisible();
+  await expect(welcomeMessage).not.toHaveText('Welcome!');
+});
+
+test.beforeEach(async ({ page }) => {
+  await page.route('**/v1beta/models/gemini-2.5-flash:generateContent**', async route => {
+    const json = {
+      candidates: [{
+        content: {
+          parts: [{
+            text: 'Hello, Test User!'
+          }]
+        }
+      }]
+    };
+    await route.fulfill({ json });
+  });
+});
