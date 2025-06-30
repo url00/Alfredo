@@ -7,8 +7,7 @@
     "build": "ng build",
     "build:prod": "ng build --configuration production --base-href /Alfredo/",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test",
-    "e2e": "npx playwright test",
+    "test:e2e": "npx playwright test",
     "test:ai": "npx playwright test --config=playwright.ai.config.ts"
   },
   "private": true,
