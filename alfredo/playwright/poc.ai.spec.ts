@@ -4,7 +4,7 @@ import * as path from 'path';
 
 dotenv.config({ path: path.resolve(__dirname, '..', '.env') });
 
-test.beforeEach(async ({ page }) => {
+test('should return 4 from AI prompt', async ({ page }) => {
   await page.goto('/');
 
   // Wait for the database to be initialized
@@ -18,22 +18,13 @@ test.beforeEach(async ({ page }) => {
   await page.getByRole('button', { name: 'Next' }).click();
   await page.getByRole('button', { name: 'Complete Setup' }).click();
 
-  // Wait for navigation to complete
+  // Wait for navigation to the status page
   await page.waitForURL('**/');
-});
 
-test('should return 4 from AI prompt', async ({ page }) => {
-  // Listen for any console errors, which might indicate a problem with initialization
-  page.on('console', msg => {
-    if (msg.type() === 'error') {
-      console.error(`Browser console error: ${msg.text()}`);
-    }
-  });
+  // Click the button to run the AI prompt
+  await page.locator('#run-ai-prompt').click();
 
-  await page.goto(
-    'ai-test?prompt=Without%20adding%20any%20additional%20text%2C%20please%20return%20the%20result%20of%20the%20expression%202%2B2'
-  );
-
-  // Increase the timeout to give the AI service more time to respond
-  await expect(page.locator('body')).toHaveText('4', { timeout: 15000 });
+  // Wait for the result and assert its value
+  const resultLocator = page.locator('#ai-result');
+  await expect(resultLocator).toHaveText('4', { timeout: 15000 });
 });

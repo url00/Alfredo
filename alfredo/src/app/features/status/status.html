@@ -10,5 +10,8 @@
     <!-- Main content will go here -->
     <h2 *ngIf="userName">Welcome, {{ userName }}!</h2>
     <p *ngIf="!userName">Welcome!</p>
+
+    <button id="run-ai-prompt" (click)="runAiPrompt()">Run AI Prompt</button>
+    <div id="ai-result" *ngIf="aiResult$ | async as result">{{ result }}</div>
   </main>
 </div>
