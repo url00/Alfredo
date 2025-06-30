@@ -1,15 +1,26 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { from } from 'rxjs';
+import { ConfigService } from './config.service';
+import { firstValueFrom } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AiService {
-  private generativeAI: GoogleGenerativeAI;
+  private generativeAI!: GoogleGenerativeAI;
+  private configService = inject(ConfigService);
 
   constructor() {
-    this.generativeAI = new GoogleGenerativeAI(process.env['GEMINI_API_KEY']!);
+    this.initialize();
+  }
+
+  private async initialize(): Promise<void> {
+    const config = await firstValueFrom(
+      this.configService.config$.pipe(filter(c => c !== null))
+    );
+    this.generativeAI = new GoogleGenerativeAI(config!.geminiApiKey!);
   }
 
   generateText(prompt: string) {
