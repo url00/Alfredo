@@ -23,8 +23,17 @@ test.beforeEach(async ({ page }) => {
 });
 
 test('should return 4 from AI prompt', async ({ page }) => {
+  // Listen for any console errors, which might indicate a problem with initialization
+  page.on('console', msg => {
+    if (msg.type() === 'error') {
+      console.error(`Browser console error: ${msg.text()}`);
+    }
+  });
+
   await page.goto(
-    '/ai-test?prompt=Without%20adding%20any%20additional%20text%2C%20please%20return%20the%20result%20of%20the%20expression%202%2B2'
+    'ai-test?prompt=Without%20adding%20any%20additional%20text%2C%20please%20return%20the%20result%20of%20the%20expression%202%2B2'
   );
-  await expect(page.locator('body')).toHaveText('4');
+
+  // Increase the timeout to give the AI service more time to respond
+  await expect(page.locator('body')).toHaveText('4', { timeout: 15000 });
 });
