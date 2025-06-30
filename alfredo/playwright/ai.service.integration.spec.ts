@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
-import { AiService } from './ai.service';
-import { ConfigService } from './config.service';
-import { DatabaseService } from './database.service';
+import { AiService } from '../src/app/core/ai.service';
+import { ConfigService } from '../src/app/core/config.service';
+import { DatabaseService } from '../src/app/core/database.service';
 import { HttpClient, HttpHandler } from '@angular/common/http';
 
 test.describe('AI Service Integration', () => {
