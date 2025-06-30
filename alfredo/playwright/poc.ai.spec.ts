@@ -10,6 +10,8 @@ test('should return 4 from AI prompt', async ({ page }) => {
   // Wait for the database to be initialized
   await page.waitForFunction(() => (window as any).dbReady);
 
+  await page.waitForURL('/Alfredo/setup');
+
   // Complete the setup wizard
   await page.getByLabel('Name').fill('Test User');
   await page.getByLabel('Email').fill('test@example.com');
@@ -18,8 +20,11 @@ test('should return 4 from AI prompt', async ({ page }) => {
   await page.getByRole('button', { name: 'Next' }).click();
   await page.getByRole('button', { name: 'Complete Setup' }).click();
 
-  // Wait for navigation to the status page
-  await page.waitForURL('**/');
+  // Wait for navigation and then navigate to the new ai-test page
+  await page.waitForURL('/Alfredo/');
+  // todo figure out why it takes at least a couple of seconds for data to "save" to the store
+  await page.waitForTimeout(3000);
+  await page.goto('/Alfredo/ai-test');
 
   // Click the button to run the AI prompt
   await page.locator('#run-ai-prompt').click();
