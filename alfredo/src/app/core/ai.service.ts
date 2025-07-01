@@ -28,9 +28,14 @@ export class AiService {
     }
   }
 
-  async generateText(prompt: string): Promise<string> {
+  async generateText(prompt: string, temperature?: number): Promise<string> {
     await this.initializePromise;
-    const model = this.generativeAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+    const model = this.generativeAI.getGenerativeModel({
+      model: 'gemini-2.5-flash-lite-preview-06-17',
+      generationConfig: {
+        temperature: temperature ?? 0.7,
+      },
+    });
     const result = await model.generateContent(prompt);
     return result.response.text();
   }
