@@ -17,8 +17,8 @@ test('has welcome message', async ({ page }) => {
 test('should download the database state', async ({ page }) => {
   await page.goto('/');
 
-  // Wait for the database to be initialized
-  await page.waitForFunction(() => (window as any).dbReady);
+  // Wait for the setup wizard to be ready
+  await expect(page.getByLabel('Name')).toBeVisible();
 
   // Complete the setup wizard
   await page.getByLabel('Name').fill('Test User');
@@ -51,8 +51,8 @@ test('should download the database state', async ({ page }) => {
 test('should load existing data from a database file', async ({ page }) => {
   await page.goto('/');
 
-  // Wait for the database to be initialized
-  await page.waitForFunction(() => (window as any).dbReady);
+  // Wait for the setup wizard to be ready
+  await expect(page.getByLabel('Name')).toBeVisible();
 
   // Start waiting for the file chooser
   const fileChooserPromise = page.waitForEvent('filechooser');

@@ -4,8 +4,8 @@ test.describe('Database Service', () => {
   test('should initialize the database and allow writing and reading data', async ({ page }) => {
     await page.goto('/');
 
-    // Wait for the database to be initialized
-    await page.waitForFunction(() => (window as any).dbReady);
+    // Wait for the setup wizard to be ready
+    await expect(page.getByLabel('Name')).toBeVisible();
 
     // Complete the setup wizard
     await page.getByLabel('Name').fill('Test User');

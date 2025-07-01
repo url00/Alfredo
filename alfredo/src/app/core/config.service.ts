@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { DatabaseService } from './database.service';
-import { BehaviorSubject, firstValueFrom } from 'rxjs';
-import { filter } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
 import { Config } from './models/config.model';
+import { StorageService } from './storage.service';
+import { DatabaseService } from './database.service';
 
 /**
  * A service for managing application configuration settings.
@@ -16,12 +16,11 @@ export class ConfigService {
   private configSubject = new BehaviorSubject<Config | null>(null);
   public config$ = this.configSubject.asObservable();
 
-  constructor(private databaseService: DatabaseService) {
-    this.databaseService.dbReady$.subscribe(ready => {
-      if (ready) {
-        this.loadConfig();
-      }
-    });
+  constructor(
+    private storageService: StorageService,
+    private databaseService: DatabaseService
+    ) {
+    this.loadConfig();
   }
 
   private loadConfig(): void {
@@ -34,56 +33,30 @@ export class ConfigService {
   }
 
   /**
-   * Waits until the database is ready.
-   * @returns A promise that resolves to true when the database is initialized.
-   */
-  private async waitForDbReady(): Promise<boolean> {
-    return firstValueFrom(
-      this.databaseService.dbReady$.pipe(filter(isReady => isReady))
-    );
-  }
-
-  /**
    * Sets a configuration value.
    * @param key The configuration key.
    * @param value The value to store. The value will be JSON.stringified.
    */
-  public async set(key: string, value: any): Promise<void> {
-    await this.waitForDbReady();
-    const db = this.databaseService.getDb();
-    if (!db) {
-      throw new Error('Database not initialized');
-    }
-    const strValue = JSON.stringify(value);
-    db.run('INSERT OR REPLACE INTO Configuration (key, value) VALUES (?, ?)', [key, strValue]);
-    this.databaseService.notifyDbModified();
+  public set(key: string, value: any): void {
+    this.storageService.set(key, value);
     this.loadConfig();
   }
 
   /**
    * Retrieves a configuration value.
    * @param key The configuration key.
-   * @returns The parsed value, or undefined if the key is not found or the DB is not ready.
+   * @returns The parsed value, or undefined if the key is not found.
    */
   public get<T>(key: string): T | undefined {
-    const db = this.databaseService.getDb();
-    if (!db) {
-      console.error('Get called before DB was ready.');
-      return undefined;
-    }
-    const res = db.exec(`SELECT value FROM Configuration WHERE key = ?`, [key]);
-    if (res.length === 0 || res[0].values.length === 0) {
-      return undefined;
-    }
-    return JSON.parse(res[0].values[0][0] as string) as T;
+    const value = this.storageService.get<T>(key);
+    return value === null ? undefined : value;
   }
 
   /**
    * Checks if the initial application setup has been completed.
-   * @returns A promise that resolves to true if setup is complete, otherwise false.
+   * @returns true if setup is complete, otherwise false.
    */
-  public async isSetupComplete(): Promise<boolean> {
-    await this.waitForDbReady();
+  public isSetupComplete(): boolean {
     return this.get<boolean>('setup_complete') || false;
   }
 
@@ -95,11 +68,10 @@ export class ConfigService {
     await this.databaseService.importDb(dbFile);
   }
 
-  public async updateConfig(config: Partial<Config>): Promise<void> {
-    await this.waitForDbReady();
+  public updateConfig(config: Partial<Config>): void {
     for (const key in config) {
       if (Object.prototype.hasOwnProperty.call(config, key)) {
-        await this.set(key, config[key as keyof Config]);
+        this.set(key, config[key as keyof Config]);
       }
     }
   }

@@ -7,9 +7,6 @@ dotenv.config({ path: path.resolve(__dirname, '..', '.env') });
 test('should return 4 from AI prompt', async ({ page }) => {
   await page.goto('/');
 
-  // Wait for the database to be initialized
-  await page.waitForFunction(() => (window as any).dbReady);
-
   await page.waitForURL('/Alfredo/setup');
 
   // Complete the setup wizard
@@ -23,7 +20,7 @@ test('should return 4 from AI prompt', async ({ page }) => {
   // Wait for navigation and then navigate to the new ai-test page
   await page.waitForURL('/Alfredo/');
   // todo figure out why it takes at least a couple of seconds for data to "save" to the store
-  await page.waitForTimeout(3000);
+  // await page.waitForTimeout(3000);
   await page.goto('/Alfredo/ai-test');
 
   // Click the button to run the AI prompt
