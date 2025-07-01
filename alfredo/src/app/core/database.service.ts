@@ -11,10 +11,6 @@ import { StorageService } from './storage.service';
 export class DatabaseService {
   constructor(private storageService: StorageService) {}
 
-  /**
-   * Exports the current application state from local storage to a SQLite database file.
-   * @returns A Promise that resolves to a Uint8Array representing the database file, or undefined on error.
-   */
   public async exportDb(): Promise<Uint8Array | undefined> {
     try {
       const SQL = await initSqlJs({ locateFile: () => `sql-wasm.wasm` });
@@ -34,7 +30,6 @@ export class DatabaseService {
         }
       }
 
-      console.log('On-the-fly database created and exported.');
       return db.export();
     } catch (err) {
       console.error('Error exporting database:', err);
@@ -42,10 +37,6 @@ export class DatabaseService {
     }
   }
 
-  /**
-   * Imports data from a user-provided database file into local storage.
-   * @param dbFile The .sqlite or .db file to import.
-   */
   public async importDb(dbFile: File): Promise<void> {
     try {
       const buffer = await dbFile.arrayBuffer();
@@ -54,7 +45,7 @@ export class DatabaseService {
 
       const res = importedDb.exec('SELECT key, value FROM Configuration');
       if (res.length > 0) {
-        this.storageService.clear(); // Clear old data before import
+        this.storageService.clear();
         res[0].values.forEach(row => {
           const key = row[0] as string;
           const value = JSON.parse(row[1] as string);
@@ -62,19 +53,13 @@ export class DatabaseService {
         });
       }
 
-      console.log('Database imported and data migrated to local storage');
-      // Reload to reflect the new state
       window.location.reload();
     } catch (err) {
       console.error('Error importing database:', err);
     }
   }
 
-  /**
-   * Deletes all application data from local storage.
-   */
-  public async deleteDatabase(): Promise<void> {
+  public deleteDatabase(): void {
     this.storageService.clear();
-    console.log('All application data cleared from local storage.');
   }
 }
