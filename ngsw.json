@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1751303737025,
+  "timestamp": 1751408001297,
   "index": "/Alfredo/index.html",
   "assetGroups": [
     {
@@ -13,7 +13,7 @@
       "urls": [
         "/Alfredo/favicon.ico",
         "/Alfredo/index.html",
-        "/Alfredo/main-4A5EIDOA.js",
+        "/Alfredo/main-SUXBKR7W.js",
         "/Alfredo/manifest.webmanifest",
         "/Alfredo/polyfills-B6TNHZQ6.js",
         "/Alfredo/styles-LZM7IG2S.css"
@@ -51,8 +51,8 @@
     "/Alfredo/icons/icon-512x512.png": "1de182f76f7329dfa8f9fcdd1fdcdd695bea6a99",
     "/Alfredo/icons/icon-72x72.png": "aa88a6096bd973be7f6d7a5489bfa6bc2463f8c4",
     "/Alfredo/icons/icon-96x96.png": "7fb8f59c30ce2ff12c700321a0b39e14b3dc8f95",
-    "/Alfredo/index.html": "ab59c13e0839458c0efc0540be32b777d2ae3596",
-    "/Alfredo/main-4A5EIDOA.js": "ffa226d24b0a1afb4977bf05d766405cf74eae6c",
+    "/Alfredo/index.html": "27e51c17ed11ca683e1713c2251003217663cb1e",
+    "/Alfredo/main-SUXBKR7W.js": "fb99c619e0b3770f95f1cf8da644d10a06d78d54",
     "/Alfredo/manifest.webmanifest": "fd3cbdc15d243835bf816d5e8585b8945368f45f",
     "/Alfredo/polyfills-B6TNHZQ6.js": "bf76ac291d7f51c1139b7edcf86b359a30c08c64",
     "/Alfredo/styles-LZM7IG2S.css": "02b8fd933c51d0ab44b335ae3cc607f66d28b02b"
