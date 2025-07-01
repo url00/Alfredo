@@ -7,8 +7,8 @@
     "build": "ng build",
     "build:prod": "ng build --configuration production --base-href /Alfredo/",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test",
-    "e2e": "npx playwright test"
+    "test:e2e": "npx playwright test --output \"\"",
+    "test:ai": "npx playwright test --config=playwright.ai.config.ts --output \"\""
   },
   "private": true,
   "browser": {
@@ -24,6 +24,7 @@
     "@angular/platform-browser": "^20.0.0",
     "@angular/router": "^20.0.0",
     "@angular/service-worker": "^20.0.0",
+    "@google/generative-ai": "^0.24.1",
     "rxjs": "~7.8.0",
     "sql.js": "^1.13.0",
     "tslib": "^2.3.0",
@@ -38,6 +39,7 @@
     "@types/node": "^24.0.3",
     "@types/sql.js": "^1.4.9",
     "angular-cli-ghpages": "^2.0.1",
+    "dotenv": "^17.0.0",
     "jasmine-core": "~5.7.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",

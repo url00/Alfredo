@@ -1,0 +1,4 @@
+<div class="ai-test-container">
+  <button id="run-ai-prompt" (click)="runAiPrompt()">Run AI Prompt</button>
+  <div id="ai-result" *ngIf="aiResult$ | async as result">{{ result }}</div>
+</div>

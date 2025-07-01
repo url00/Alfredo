@@ -35,13 +35,16 @@ export class SettingsComponent implements OnInit {
   }
 
   saveSettings(): void {
-    this.configService.set('user_name', this.user.name);
-    this.configService.set('user_email', this.user.email);
-    this.configService.set('gemini_api_key', this.config.geminiApiKey);
+    const newConfig: Config = {
+      userName: this.user.name,
+      userEmail: this.user.email,
+      geminiApiKey: this.config.geminiApiKey
+    };
+    this.configService.updateConfig(newConfig);
   }
 
-  async deleteDatabase(): Promise<void> {
-    if (confirm('Are you sure you want to delete the database? This action cannot be undone.')) {
+  async deleteData(): Promise<void> {
+    if (confirm('Are you sure you want to delete all application data? This action cannot be undone.')) {
       await this.databaseService.deleteDatabase();
       // This will trigger the setup guard and redirect to the setup wizard
       window.location.reload();
