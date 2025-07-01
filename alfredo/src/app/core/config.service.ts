@@ -69,10 +69,22 @@ export class ConfigService {
   }
 
   public updateConfig(config: Partial<Config>): void {
+    const configKeyMap: { [key in keyof Config]: string } = {
+      userName: 'user_name',
+      userEmail: 'user_email',
+      geminiApiKey: 'gemini_api_key'
+    };
+
     for (const key in config) {
       if (Object.prototype.hasOwnProperty.call(config, key)) {
-        this.set(key, config[key as keyof Config]);
+        const storageKey = configKeyMap[key as keyof Config];
+        if (storageKey) {
+          // Set value in storage without triggering a reload
+          this.storageService.set(storageKey, config[key as keyof Config]);
+        }
       }
     }
+    // Reload the config once after all values are updated
+    this.loadConfig();
   }
 }

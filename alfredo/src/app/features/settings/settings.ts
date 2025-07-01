@@ -35,9 +35,12 @@ export class SettingsComponent implements OnInit {
   }
 
   saveSettings(): void {
-    this.configService.set('user_name', this.user.name);
-    this.configService.set('user_email', this.user.email);
-    this.configService.set('gemini_api_key', this.config.geminiApiKey);
+    const newConfig: Config = {
+      userName: this.user.name,
+      userEmail: this.user.email,
+      geminiApiKey: this.config.geminiApiKey
+    };
+    this.configService.updateConfig(newConfig);
   }
 
   async deleteData(): Promise<void> {
