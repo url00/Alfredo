@@ -23,8 +23,8 @@ export class StatusComponent implements OnInit {
     this.userName = this.configService.get<string>('user_name');
   }
 
-  downloadState() {
-    const dbData = this.databaseService.exportDb();
+  async downloadState() {
+    const dbData = await this.databaseService.exportDb();
     if (dbData) {
       const blob = new Blob([dbData], { type: 'application/octet-stream' });
       const url = window.URL.createObjectURL(blob);
