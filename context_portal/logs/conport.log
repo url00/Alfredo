@@ -12,3 +12,14 @@
 2025-07-08 20:23:30,132 - INFO - mcp.server.lowlevel.server - Processing request of type CallToolRequest
 2025-07-08 20:23:30,151 - INFO - context_portal_mcp.db.database - Alembic: Script directory c:\Users\nathan\Desktop\Alfredo\context_portal\alembic confirmed to exist by Python.
 2025-07-08 20:23:30,151 - INFO - context_portal_mcp.db.database - Running Alembic migrations for database: c:\Users\nathan\Desktop\Alfredo\context_portal\context.db
+2025-07-08 20:43:28,560 - INFO - context_portal_mcp.main - File logging configured to: c:/Users/nathan/Desktop/Alfredo\context_portal\./logs/conport.log
+2025-07-08 20:43:28,560 - INFO - context_portal_mcp.main - Parsed CLI args: Namespace(host='127.0.0.1', port=8000, workspace_id='c:/Users/nathan/Desktop/Alfredo', mode='stdio', log_file='./logs/conport.log', log_level='INFO')
+2025-07-08 20:43:28,560 - INFO - context_portal_mcp.main - Starting ConPort in STDIO mode using FastMCP for initial CLI arg workspace_id: c:/Users/nathan/Desktop/Alfredo
+2025-07-08 20:43:28,560 - INFO - context_portal_mcp.main - STDIO mode: Using effective_workspace_id 'c:/Users/nathan/Desktop/Alfredo'. Database directory will be created on first actual DB use.
+2025-07-08 20:43:28,599 - INFO - context_portal_mcp.main - ConPort FastMCP server lifespan starting.
+2025-07-08 20:43:28,603 - INFO - mcp.server.lowlevel.server - Processing request of type ListToolsRequest
+2025-07-08 20:43:28,607 - INFO - mcp.server.lowlevel.server - Processing request of type ListResourcesRequest
+2025-07-08 20:43:28,609 - INFO - mcp.server.lowlevel.server - Processing request of type ListResourceTemplatesRequest
+2025-07-08 20:49:16,196 - INFO - mcp.server.lowlevel.server - Processing request of type CallToolRequest
+2025-07-08 20:49:16,199 - INFO - context_portal_mcp.db.database - Alembic: Script directory c:\Users\nathan\Desktop\Alfredo\context_portal\alembic confirmed to exist by Python.
+2025-07-08 20:49:16,199 - INFO - context_portal_mcp.db.database - Running Alembic migrations for database: c:\Users\nathan\Desktop\Alfredo\context_portal\context.db
